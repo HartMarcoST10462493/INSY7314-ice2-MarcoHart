@@ -71,4 +71,24 @@ const createBook = (req, res, next) => {
   }
 };
 
-module.exports = { getAllBooks, getBookById, createBook };
+// DELETE /api/books/:id - removes a book by its id (admin only, checked in the routes),
+// or returns 404 if it doesn't exist
+const deleteBook = (req, res, next) => {
+  try {
+    const index = books.findIndex((b) => b.id === req.params.id);
+
+    if (index === -1) {
+      return res.status(404).json({
+        success: false,
+        message: `Book with id '${req.params.id}' not found`,
+      });
+    }
+
+    const [deletedBook] = books.splice(index, 1);
+    res.status(200).json({ success: true, message: "Book deleted", data: deletedBook });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { getAllBooks, getBookById, createBook, deleteBook };
