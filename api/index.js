@@ -1,7 +1,8 @@
 /*
  * index.js
  * The entry point of the API. It loads settings from .env, sets up
- * middleware (JSON parsing and CORS), mounts the routes, and starts the server.
+ * middleware (JSON parsing and CORS), mounts the routes, creates the admin
+ * user, and starts the server.
  * Order matters: routes come first, then the 404 handler, then the error handler.
  */
 
@@ -9,7 +10,15 @@ require("dotenv").config({ quiet: true });
 const express = require("express");
 const cors = require("cors");
 const bookRoutes = require("./routes/bookRoutes");
+const authRoutes = require("./routes/authRoutes");
+const { seedAdmin } = require("./controllers/authController");
 const errorHandler = require("./middleware/errorHandler");
+
+// Tokens can't be signed or checked without a secret, so refuse to start without one
+if (!process.env.JWT_SECRET) {
+  console.error("JWT_SECRET is missing from .env – server not started");
+  process.exit(1);
+}
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -33,7 +42,7 @@ const checkOrigin = (origin, callback) => {
 
 // Middleware: read JSON request bodies, and apply our CORS rules
 app.use(express.json());
-app.use(cors({ origin: checkOrigin, methods: ["GET", "POST"] }));
+app.use(cors({ origin: checkOrigin, methods: ["GET", "POST", "DELETE"] }));
 
 // GET / - a simple welcome message to show the API is running
 app.get("/", (req, res) => {
@@ -49,8 +58,9 @@ app.get("/health", (req, res) => {
   });
 });
 
-// All book routes live under /api/books
+// All book routes live under /api/books, and register/login/profile under /api/auth
 app.use("/api/books", bookRoutes);
+app.use("/api/auth", authRoutes);
 
 // 404 handler: runs only if no route above matched the request
 app.use((req, res) => {
@@ -63,7 +73,9 @@ app.use((req, res) => {
 // Central error handler must be registered last
 app.use(errorHandler);
 
-// Start the server and print the address
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+// Create the admin user first, then start the server and print the address
+seedAdmin().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
 });
