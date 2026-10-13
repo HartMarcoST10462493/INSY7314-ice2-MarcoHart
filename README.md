@@ -1,4 +1,4 @@
-# INSY7314 ICE Task 2 – Structured Books API
+# INSY7314 ICE Task – Structured Books API
 
 GitHub Repository: LINK_HERE
 
