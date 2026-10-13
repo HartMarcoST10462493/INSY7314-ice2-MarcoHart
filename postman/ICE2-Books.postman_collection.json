@@ -1,0 +1,483 @@
+{
+  "info": {
+    "name": "INSY7314 ICE2 Books",
+    "description": "ICE Task 2 – tests every route of the structured Books API and each input validation rule. Run in order against a freshly started server so new books get IDs b4–b8.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. GET Root",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": []
+        },
+        "description": "Root route – expects 200 with a welcome message."
+      },
+      "response": []
+    },
+    {
+      "name": "2. GET Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/health",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "health"
+          ]
+        },
+        "description": "Health check – expects 200 with status, uptime and timestamp."
+      },
+      "response": []
+    },
+    {
+      "name": "3. GET All Books",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Fetch all books – expects 200 with the 3 seeded books."
+      },
+      "response": []
+    },
+    {
+      "name": "4. GET Book b1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/books/b1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "books",
+            "b1"
+          ]
+        },
+        "description": "Fetch a book by ID – expects 200."
+      },
+      "response": []
+    },
+    {
+      "name": "5. GET Book b99 (Not Found)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/books/b99",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "books",
+            "b99"
+          ]
+        },
+        "description": "Fetch a missing book – expects 404."
+      },
+      "response": []
+    },
+    {
+      "name": "6. POST Add Book – Dune",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Dune\",\n  \"author\": \"Frank Herbert\",\n  \"genre\": \"Science Fiction\",\n  \"year\": 1965,\n  \"price\": 229.99\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expects 201, id b4."
+      },
+      "response": []
+    },
+    {
+      "name": "7. POST Add Book – Pride and Prejudice",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Pride and Prejudice\",\n  \"author\": \"Jane Austen\",\n  \"genre\": \"Romance\",\n  \"year\": 1813,\n  \"price\": 120\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expects 201, id b5."
+      },
+      "response": []
+    },
+    {
+      "name": "8. POST Add Book – The Great Gatsby",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"The Great Gatsby\",\n  \"author\": \"F. Scott Fitzgerald\",\n  \"genre\": \"Classic\",\n  \"year\": 1925,\n  \"price\": 145.5\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expects 201, id b6."
+      },
+      "response": []
+    },
+    {
+      "name": "9. POST Add Book – Sapiens",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Sapiens\",\n  \"author\": \"Yuval Noah Harari\",\n  \"genre\": \"Non-fiction\",\n  \"year\": 2011,\n  \"price\": 280\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expects 201, id b7."
+      },
+      "response": []
+    },
+    {
+      "name": "10. POST Add Book – The Alchemist",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"The Alchemist\",\n  \"author\": \"Paulo Coelho\",\n  \"genre\": \"Fiction\",\n  \"year\": 1988,\n  \"price\": 175\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expects 201, id b8."
+      },
+      "response": []
+    },
+    {
+      "name": "11. GET All Books (After Adding)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Confirms the five new books were added – expects 200 with count 8."
+      },
+      "response": []
+    },
+    {
+      "name": "12. POST Validation – Missing Title",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"author\": \"George Orwell\",\n  \"genre\": \"Satire\",\n  \"year\": 1945,\n  \"price\": 99.99\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expects 400 with the title error."
+      },
+      "response": []
+    },
+    {
+      "name": "13. POST Validation – Invalid Year",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Future Book\",\n  \"author\": \"Unknown Author\",\n  \"genre\": \"Science Fiction\",\n  \"year\": 3000,\n  \"price\": 150\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expects 400 with the year error."
+      },
+      "response": []
+    },
+    {
+      "name": "14. POST Validation – Negative Price",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Animal Farm\",\n  \"author\": \"George Orwell\",\n  \"genre\": \"Satire\",\n  \"year\": 1945,\n  \"price\": -50\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expects 400 with the price error."
+      },
+      "response": []
+    },
+    {
+      "name": "15. POST Validation – Empty Body",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expects 400 listing all five errors."
+      },
+      "response": []
+    },
+    {
+      "name": "16. POST Validation – Wrong Data Types",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": 12345,\n  \"author\": true,\n  \"genre\": [\n    \"Fiction\"\n  ],\n  \"year\": \"1999\",\n  \"price\": \"199.99\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/books",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "books"
+          ]
+        },
+        "description": "Expects 400 listing all five errors."
+      },
+      "response": []
+    }
+  ]
+}
